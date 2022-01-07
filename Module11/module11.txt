@@ -1,0 +1,57 @@
+1 Answer:   given the primary key for the given table is
+            {VistNo,ProvNo}
+            Insertion anomaly: absence of any one of the prime attributes results in insertion anomaly
+            Updation anomaly: if we update Diagnosis of VisitNo then it changes for both rows
+            Deletion anomaly: if we delete a row of VisitNo then we loose two rows where data of two different ProvNo is lost
+
+2 Answer:   Functional dependencies given are :
+                    PatNo-> PatAge, PatZip9
+                    PatZip9-> PatCity
+                    VisitNo-> PatNo, VisitDate
+                    ProvNo-> ProvSpecialty, ProvEmail
+                    ProvNo, VisitNo-> Diagnosis
+            given the primary key for the given table is:
+                        {VistNo,ProvNo}
+            columns in table are:
+                    BigPatient(VisitNo,VisitDate,PatNo,PatAge,PatCity,PatZip,ProvNo,ProvSpeciality,Diagnosis)
+
+            After 1 FD split into:
+                    Table1(PatNo,PatAge,PatZip)
+                    FOREIGN KEY(PatZip9) REFERENCES table2
+            After 2 FD split into:
+                    Table2(PatZip9,PatCity)
+            After 3 FD split into:
+                    Table3(VisitNo, PatNo, VisitDate)
+                    FOREIGN KEY(PatNo) REFERENCES table1
+            After 4 FD split into:
+                    Table4(ProvNo, ProvSpecialty, ProvEmail)
+                    UNIQUE(ProvEmail)
+            After 5 FD split into:
+                    Table5(ProvNo, VisitNo, Diagnosis)
+                    FOREIGN KEY (ProvNo) REFERENCES table4
+                    FOREIGN KEY (VisitNo) REFERENCES table3
+
+3 Answer:   given tables:
+                    Student (StdNo PRIMARY KEY, StdName, StdEmail, StdAddress, StdCity, StdState, StdZip )
+                    Lender(LenderNo PRIMARY KEY, LenderName)
+                    Institution(InstNo PRIMARY KEY, InstName, InstMascot)
+
+                    Lender table is already is in BCNF
+                    In Institution table given InstName is unique so InstName can be used to reference other columns of the table uniquely, so it violates BCNF because InstName is not a super key
+                    In Student table given StdEmail is unique so StdEmail ca be used to reference other columns there by forming dependency from this column to other columns violating BCNF
+
+4 Answer:   listing functional dependencies using OrdNo as determinant
+            OrdNo->ItemNo
+            answer: row1,row2 both have LHS same but RHS different, so it falsifies FD
+            OrdNo->QtyOrd
+            answer: row3,row4 falsifies FD
+            OrdNo->CustNO
+            answer: satisfies FD
+            OrdNo->CustBal
+            answer: satisfies FD
+            OrdNo->CustDisc
+            answer: satisfies FD
+            OrdNo->ItemPrice
+            answer: row1,row2 falsifies FD
+            OrdNo->OrdDate
+            answer: satisfies FD
